@@ -1,0 +1,44 @@
+{
+    "Corn___Common_Rust": {
+        "species": "corn",
+        "disease": "Common Rust",
+        "descriptions": {
+            "symptoms": "Small, circular to elongate, reddish-brown pustules (uredinia) on both leaf surfaces. As the disease progresses, pustules may turn black (telia). Severe infections can cause leaf yellowing and premature leaf senescence.",
+            "conditions": "Cool, moderate temperatures (60-77°F) with high humidity and extended leaf wetness favor the disease.",
+            "pathogen": "Caused by the fungus Puccinia sorghi."
+        },
+        "treatments": {
+            "Resistant Varieties": "Plant corn hybrids with resistance to common rust.",
+            "Fungicides": "Apply foliar fungicides if the disease appears early and weather conditions favor its spread. Fungicides like strobilurins (e.g., azoxystrobin) and triazoles (e.g., propiconazole) are effective.",
+            "Crop Rotation and Residue Management": "Rotate crops to reduce the inoculum in the field and manage crop residues to minimize overwintering spores."
+        }
+    },
+    "Corn___Gray_Leaf_Spot": {
+        "species": "corn",
+        "disease": "Gray Leaf Spot",
+        "descriptions": {
+            "symptoms": "Lesions start as small, necrotic spots that expand into rectangular, gray to tan lesions parallel to leaf veins. Severe infections can lead to extensive leaf blighting and reduced photosynthetic area.",
+            "conditions": "Warm, humid weather with prolonged periods of leaf wetness promotes the disease.",
+            "pathogen": "Caused by the fungus Cercospora zeae-maydis."
+        },
+        "treatments": {
+            "Resistant Varieties": "Use hybrids that have partial resistance to gray leaf spot.",
+            "Fungicides": "Apply fungicides like strobilurins (e.g., pyraclostrobin) and triazoles (e.g., propiconazole) at tasseling or early silking if the disease pressure is high.",
+            "Crop Rotation and Tillage": "Rotate crops and till the soil to reduce the amount of infected crop residue."
+        }
+    },
+    "Corn___Northern_Leaf_Blight": {
+        "species": "corn",
+        "disease": "Northern Leaf Blight",
+        "descriptions": {
+            "symptoms": "Large, elongated, cigar-shaped gray-green or tan lesions on leaves. Severe infections can cause extensive leaf blighting, resulting in premature death and yield loss.",
+            "pathogen": "Caused by the fungus Exserohilum turcicum.",
+            "conditions": "Moderate to warm temperatures (64-81°F) with high humidity or frequent rain favor disease development."
+        },
+        "treatments": {
+            "Resistant Varieties": "Choose hybrids with genetic resistance to northern leaf blight.",
+            "Fungicides": "Use fungicides such as strobilurins (e.g., azoxystrobin) and triazoles (e.g., tebuconazole) at early signs of disease or when conditions are favorable for disease development.",
+            "Crop Rotation and Residue Management": "Practice crop rotation and manage crop residues through tillage to reduce the pathogen load."
+        }
+    }
+}

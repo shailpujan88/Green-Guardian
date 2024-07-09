@@ -1,0 +1,7 @@
+# Training Cache file
+test.cache
+train.cache
+val.cache
+
+# Pretrained Model
+yolov8n*.pt
