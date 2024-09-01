@@ -149,8 +149,14 @@ export default function ThemeToggle({ rtype }: Props) {
 }
 
 function toggleThemeClass(className: "dark" | "light") {
+    const backgroundImageUrl = "C:/Users/HP/Downloads/AgroGuard-main/AgroGuard-main/Frontend/public/bunch-green-plants-with-word-no-them_979520-113979.jpg";
+    
     if (className === "dark") {
         if (!document.documentElement.classList.contains("dark"))
             document.documentElement.classList.add("dark")
-    } else document.documentElement.classList.remove("dark")
+        document.body.style.backgroundImage = `url(${backgroundImageUrl})`
+    } else {
+        document.documentElement.classList.remove("dark")
+        document.body.style.backgroundImage = ""  // Reset the background for light theme
+    }
 }

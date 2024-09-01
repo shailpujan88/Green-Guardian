@@ -51,7 +51,44 @@ export default function UploadForm({ image, onPress }: Props) {
                             "Cannot process your data due to some user-side errors."
                     )
                 else if (statusCode === 422)
-                    toast.error("Cannot predict the disease in the image.")
+                    toast.error(
+                        "Cannot predict the disease in the image. Please select another image.",
+                        {
+                            action: {
+                                label: "Why?",
+                                onClick: () => {
+                                    toast.error(
+                                        <div>
+                                            <p className="font-semibold text-[16px] mb-2">
+                                                Possible Reasons for Detection
+                                                Failure
+                                            </p>
+                                            <ol className="list-decimal list-inside pl-5 pr-5 flex flex-col gap-2">
+                                                <li>
+                                                    The image is <b>unclear</b>,
+                                                    making it difficult to
+                                                    accurately identify the
+                                                    disease.
+                                                </li>
+                                                <li>
+                                                    The image <b>size</b> is too{" "}
+                                                    <b>broad</b>. Please take a{" "}
+                                                    <b>close-up</b> picture of
+                                                    the <b>plant leaf</b> for
+                                                    better results.
+                                                </li>
+                                                <li>
+                                                    The disease is{" "}
+                                                    <b>not registered</b> in our
+                                                    database.
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    )
+                                },
+                            },
+                        }
+                    )
             } else if (error instanceof Error) console.error(error.message)
             else console.error(error)
         },
@@ -62,10 +99,10 @@ export default function UploadForm({ image, onPress }: Props) {
     uploadImage = useCallback(
         (data: typeof image) => {
             if (!data || !data.data) return
-            
+
             setDiseaseState(null)
             toast.info("Your request is being processed. Please wait a moment.")
-            
+
             const formData = new FormData()
             const file = prepareFileForUpload(data.data, data.name)
             formData.append("image", file)
@@ -74,24 +111,8 @@ export default function UploadForm({ image, onPress }: Props) {
                 .then((data) => {
                     const result = data.data
                     if (!result.status) throw new Error(result.message)
-                        toast.success("You request has been processed.")
-                    if (
-                        "status" in result.data &&
-                        result.data.status === "healthy"
-                    ) {
-                        return setDiseaseState({
-                            disease: "Healthy",
-                            species: "",
-                            descriptions: [{
-                                header: "Healthy",
-                                description: "Your plant appears to be healthy. There is no need for any treatments."
-                            }],
-                            treatments: [{
-                                header: "Healthy",
-                                description: "Your plant appears to be healthy. There is no need for any treatments."
-                            }]
-                        })
-                    }
+                    toast.success("You request has been processed.")
+
                     const descriptions: {
                         header: string
                         description: string
@@ -142,7 +163,7 @@ export default function UploadForm({ image, onPress }: Props) {
     }, [image, uploadImage])
     return (
         <>
-            <Toaster position="top-right" richColors closeButton />
+            <Toaster position="top-center" richColors closeButton />
             <div className="flex gap-10 flex-wrap  w-full h-full justify-center items-center p-20">
                 <div
                     onClick={onPress}

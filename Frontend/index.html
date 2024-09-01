@@ -1,69 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/icon-2000x2000.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GreenGuardians: Safeguarding crops, one leaf at a time!</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        #backgroundimg {
-            height: 100vh;
-            width: 100vw;
-            
-            position: absolute;
-            top: 27%;
-            left: 50%;
-            transform: translateX(-55%);
-        }
-        
-        h1 {
-            white-space: nowrap; /* Prevents text from wrapping */
-            font-size: 5rem; /* Adjust as necessary to fit your layout */
-            
-        }
-        .text-container {
-           /* margin-top: -40px; /* Adjust this value as needed */
-            margin-top: -9vh; /* Adjust this value to move the text further down */
-            text-align: center; /* Center align text */
-            color: #111010; /* Text color */
-        }
-       body{
-        position: relative;
-        background-image: url(./background.jpeg);
-        height: 100vh;
-        width: 100% ;
-        background-size: 280%;
-        background-repeat: no-repeat;
-            background-position: center;
-            
-       }
-
-    </style>
-</head>
-<body class="dark:bg-dark-1 h-[100vh]">
-    <div id="root" class="h-full w-full"></div>
-    <div id="backgroundimg" class="relative flex">
-        <div class="w-1/1 flex justify-center items-center">
-            <img src="/img_disease_1@2x.png" class="img-fluid" alt="...">
-        </div>
-        <div class="text-container">
-            <h1 class="text-3xl font-semibold leading-normal">Welcome to GreenGuardians.<br>Identify and cure plant diseases with GreenGuardians</h1>
-          </div>
-    </div>
-    <script>
-        window
-            .matchMedia("(prefers-color-scheme: dark)")
-            .addEventListener("change", (e) => {
-                if (!localStorage.getItem("theme")) {
-                    if (e.matches) {
-                        document.documentElement.classList.add("dark")
-                    } else {
-                        document.documentElement.classList.remove("dark")
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/png" href="/icon-2000x2000.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GreenGuardian: Preserving crops, one leaf at a time!</title>
+    </head>
+    <body class="dark:bg-dark-1 h-[100vh]">
+        <div id="root" class="h-full w-full"></div>
+        <script>
+            window
+                .matchMedia("(prefers-color-scheme: dark)")
+                .addEventListener("change", (e) => {
+                    if (!localStorage.getItem("theme")) {
+                        if (e.matches) {
+                            document.documentElement.classList.add("dark")
+                        } else {
+                            document.documentElement.classList.remove("dark")
+                        }
                     }
-                }
-            })
-    </script>
-    <script type="module" src="/src/main.tsx"></script>
-</body>
+                })
+        </script>
+        <script type="module" src="/src/main.tsx"></script>
+    </body>
 </html>

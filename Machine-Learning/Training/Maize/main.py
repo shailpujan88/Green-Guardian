@@ -15,7 +15,8 @@ def yolo_train_and_evaluate(params: Tuple[float, float, int, float]) -> float:
     model = YOLO(model=YOLO_MODEL)
     dataset_abs_path = os.path.abspath("./datasets")
     results = model.train(data=dataset_abs_path, epochs=int(epochs), lr0=learning_rate, batch=int(batch_size), weight_decay=weight_decay)
-    return results.metrics['loss']
+    return float(results.metrics['loss'])  # Convert loss to a Python float
+
 
 
 def yolo_objective_function(params: Any) -> float:
@@ -25,17 +26,17 @@ def yolo_objective_function(params: Any) -> float:
     return np.array(losses)
 
 
-def training_with_pso(pretrained_model: str, datasets: str, iters: int = 10) -> Tuple[float, np.ndarray]:
+def training_with_pso(pretrained_model: str, datasets: str, iters: int = 10) -> Any:
     """Train new model using PSO for hyperparameter optimization."""
     options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9}
     bounds = ([1e-5, 16, 5, 1e-5], [1e-1, 128, 50, 1e-2])  # Adjusted bounds for learning_rate, batch_size, epochs, weight_decay
     optimizer = ps.single.GlobalBestPSO(n_particles=10, dimensions=4, options=options, bounds=bounds)
     cost, pos = optimizer.optimize(yolo_objective_function, iters=iters)
-    print(f"PSO Best Cost: {cost}, PSO Best Position: {pos}")
+    print(f"Best Cost (PSO): {cost}, Best Position (PSO): {pos}")
     return cost, pos
 
 
-def fox(SearchAgents_no: int, Max_iter: int, lb: np.ndarray, ub: np.ndarray, dim: int, fobj: Any) -> Tuple[float, np.ndarray]:
+def fox(SearchAgents_no, Max_iter, lb, ub, dim, fobj):
     """FOX Optimizer implementation."""
     Best_pos = np.zeros(dim)
     Best_score = float('inf')
@@ -96,4 +97,56 @@ def fox(SearchAgents_no: int, Max_iter: int, lb: np.ndarray, ub: np.ndarray, dim
     return Best_score, Best_pos
 
 
+def training_with_fox(pretrained_model: str, datasets: str, iters: int = 10) -> Any:
+    """Train new model using FOX for hyperparameter optimization."""
+    SearchAgents_no = 10
+    Max_iter = iters
+    lb = np.array([1e-5, 16, 5, 1e-5])
+    ub = np.array([1e-1, 128, 50, 1e-2])
+    dim = 4
 
+    cost, pos = fox(SearchAgents_no, Max_iter, lb, ub, dim, yolo_objective_function)
+    print(f"Best Cost (FOX): {cost}, Best Position (FOX): {pos}")
+    return cost, pos
+
+
+def training(pretrained_model: str, datasets: str, epochs: int = 10) -> Any:
+    """Train new model."""
+    model = YOLO(model=pretrained_model)
+    dataset_abs_path = os.path.abspath(datasets)
+    results = model.train(data=dataset_abs_path, epochs=epochs)
+    return results
+
+
+def predict(model_path: str, target_asset: str) -> YOLO:
+    """Predict/Test the custom trained model."""
+    model = YOLO(model_path)
+    results = model(target_asset)
+    return results
+
+
+def validation(model_path: str) -> Tuple[Any, Any]:
+    """Validate the custom trained model."""
+    model = YOLO(model_path)
+    metrics = model.val()
+    return metrics.top1, metrics.top5
+
+
+if __name__ == "__main__":
+    if "train" in sys.argv:
+        if "pso" in sys.argv:
+            training_with_pso(YOLO_MODEL, "./datasets", iters=2)
+        elif "fox" in sys.argv:
+            training_with_fox(YOLO_MODEL, "./datasets", iters=2)
+        else:
+            training(YOLO_MODEL, "./datasets", epochs=15)
+    elif "predict" in sys.argv:
+        predict("/runs/classify/train2/weights/last.pt", "/path/to/test/image[.jpg]")
+    elif "validate" in sys.argv:
+        validation("/runs/classify/train2/weights/best.pt")
+    else:
+        print(
+            "Command Line Arguments:\n\n'train'\t\tFor training new model\n'predict'\tFor predicting new data\n'validate'\tFor validating your custom trained model"
+        )
+
+      

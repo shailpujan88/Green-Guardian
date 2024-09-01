@@ -1,7 +1,5 @@
 .container-full {
-    height: calc(250vh - 16px - 56px);
-    margin-left: 200px; /* Adjust the value as needed */
-    
+    height: calc(100vh - 16px - 56px);
 }
 
 .transition-outline {
@@ -34,17 +32,15 @@
 }
 
 .upload-image-button {
-    height: 1000%;
+    height: 100%;
     width: 100%;
     opacity: 0;
     transition: 300ms opacity linear;
     backdrop-filter: blur(5px);
 }
 
-
 .upload-button:hover .upload-image-button {
     opacity: 1;
-    
 }
 
 
@@ -52,5 +48,10 @@
     opacity: 1;
 }
 
+.tab-bar li {
+    transition: .2s opacity;
+}
 
-
+.tab-bar li:hover {
+    opacity: 0.7;
+}
