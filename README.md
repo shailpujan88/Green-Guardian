@@ -21,7 +21,7 @@
 
 1. **Clone the Repository:**
     ```
-   
+   https://github.com/shailpujan88/Green-Guardian.git
     ```
 2. **Navigate to the Project Directory:**
     ```
